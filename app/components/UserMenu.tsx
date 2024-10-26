@@ -8,9 +8,10 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { Session } from "next-auth";
 import React from "react";
 
-const UserMenu = () => {
+const UserMenu = ({ session }: { session: Session | null }) => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
   );
@@ -26,7 +27,7 @@ const UserMenu = () => {
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+          <Avatar alt={session?.user?.email!} src={session?.user?.image!} />
         </IconButton>
       </Tooltip>
       <Menu

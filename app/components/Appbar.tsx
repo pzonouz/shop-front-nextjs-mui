@@ -4,8 +4,11 @@ import React from "react";
 import { MobileMenu } from "./MobileMenu";
 import { DesktopMenu } from "./DesktopMenu";
 import { UserMenu } from "./UserMenu";
+import { auth } from "@/auth";
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = async () => {
+  const session = await auth();
+  console.log("session", session);
   const pages = ["Products", "Pricing", "Blog"];
   return (
     <AppBar position="static">
@@ -51,7 +54,7 @@ const ResponsiveAppBar = () => {
             LOGO
           </Typography>
           <DesktopMenu pages={pages} />
-          <UserMenu />
+          <UserMenu session={session} />
         </Toolbar>
       </Container>
     </AppBar>

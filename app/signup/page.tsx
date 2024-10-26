@@ -3,6 +3,7 @@ import { SignupAction } from "@/actions/signup.action";
 import { useActionState } from "react";
 import { Box, FormHelperText, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import Link from "next/link";
 
 const Singup = () => {
   const [state, action, loading] = useActionState(SignupAction, null);
@@ -63,6 +64,7 @@ const Singup = () => {
       <LoadingButton type="submit" variant="contained" loading={loading}>
         SIGN UP
       </LoadingButton>
+      <Link href="/signin">Already Have Account?</Link>
     </Box>
   );
 };
