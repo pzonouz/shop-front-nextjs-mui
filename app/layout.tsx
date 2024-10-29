@@ -1,10 +1,10 @@
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { ResponsiveAppBar } from "./components/Appbar";
 import { ThemeProvider } from "@mui/material/styles";
 import "./globals.css";
 import theme from "./theme";
+import { ResponsiveAppBar } from "./components/Navigation/Appbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

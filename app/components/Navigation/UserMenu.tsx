@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Session } from "next-auth";
+import Link from "next/link";
 import React from "react";
 
 const UserMenu = ({ session }: { session: Session | null }) => {
@@ -46,9 +47,21 @@ const UserMenu = ({ session }: { session: Session | null }) => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem key={1} onClick={handleCloseUserMenu}>
-          <Typography sx={{ textAlign: "center" }}>{"Profile"}</Typography>
-        </MenuItem>
+        {!session?.user && (
+          <MenuItem key={1} onClick={handleCloseUserMenu}>
+            <Typography sx={{ textAlign: "center" }}>Signin</Typography>
+          </MenuItem>
+        )}
+        {session?.user && (
+          <MenuItem key={2} onClick={handleCloseUserMenu}>
+            <Typography sx={{ textAlign: "center" }}>Profile</Typography>
+          </MenuItem>
+        )}
+        {session?.user && (
+          <MenuItem key={3} component={Link} href="/signout">
+            <Typography sx={{ textAlign: "center" }}>Signout</Typography>
+          </MenuItem>
+        )}
       </Menu>
     </Box>
   );

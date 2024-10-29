@@ -1,3 +1,5 @@
+"use server";
+
 import { AppBar, Container, Toolbar, Typography } from "@mui/material";
 import AdbIcon from "@mui/icons-material/Adb";
 import React from "react";
@@ -8,7 +10,6 @@ import { auth } from "@/auth";
 
 const ResponsiveAppBar = async () => {
   const session = await auth();
-  console.log("session", session);
   const pages = ["Products", "Pricing", "Blog"];
   return (
     <AppBar position="static">
