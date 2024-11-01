@@ -7,7 +7,7 @@ const schema = z.object({
   description: z.string().min(1),
   price: z.string().nullish(),
   category_id: z.string().min(1),
-  image: z.string().nullish(),
+  image: z.any().nullish(),
   quantity: z.string().nullish(),
 });
 
@@ -26,6 +26,25 @@ const AddProductAction = async (_prevState: any, formData: FormData) => {
     },
   });
   if (res.ok) {
+    const product = await res.json();
+    console.log(product);
+    formData.append("product_id", product.id);
+    const image = formData.get("image") as File;
+    if (image) {
+      const fileRes = await fetch(`${process.env.BACKEND_URL}/image`, {
+        headers: {
+          Accept: "application/json",
+        },
+        method: "POST",
+        body: formData,
+      });
+      if (!fileRes.ok) {
+        return {
+          error: { formErrors: "Image upload failed" },
+          data: rawData,
+        };
+      }
+    }
     revalidatePath("/admin/product");
     return { success: {} };
   }

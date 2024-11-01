@@ -1,6 +1,7 @@
 "use client";
 import {
   Box,
+  Button,
   FormControl,
   FormHelperText,
   InputLabel,
@@ -13,7 +14,9 @@ import { useActionState, useEffect, useState } from "react";
 import { ModalComponent } from "../Navigation/ModalComponent";
 import { AddProductAction } from "@/actions/product.action";
 import { CategoryType } from "@/app/types/CategoryType";
-
+import { styled } from "@mui/material/styles";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+// TODO:Mutlipe image upload
 const AddProduct = ({ categories }: { categories: CategoryType[] }) => {
   const [open, setOpen] = useState(false);
   const [state, action, loading] = useActionState(AddProductAction, null);
@@ -22,6 +25,18 @@ const AddProduct = ({ categories }: { categories: CategoryType[] }) => {
       setOpen(false);
     }
   }, [state]);
+  const VisuallyHiddenInput = styled("input")({
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(50%)",
+    height: 1,
+    overflow: "hidden",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    whiteSpace: "nowrap",
+    width: 1,
+  });
+
   return (
     <ModalComponent open={open} setOpen={setOpen}>
       <Box
@@ -72,19 +87,21 @@ const AddProduct = ({ categories }: { categories: CategoryType[] }) => {
           helperText={state?.error?.fieldErrors?.quantity}
           error={!!state?.error?.fieldErrors?.quantity}
         />
-        <TextField
-          name="image"
-          label="Image"
-          variant="standard"
-          defaultValue={state?.data?.image}
-          helperText={state?.error?.fieldErrors?.image}
-          error={!!state?.error?.fieldErrors?.image}
-        />
+        <Button
+          component="label"
+          role={undefined}
+          variant="contained"
+          tabIndex={-1}
+          startIcon={<CloudUploadIcon />}
+        >
+          Upload Image
+          <VisuallyHiddenInput name="image" type="file" />
+        </Button>
         <FormControl variant="standard" fullWidth>
           <InputLabel>Category</InputLabel>
           <Select
             name="category_id"
-            defaultValue={state?.data?.categoryId || categories[0]?.id}
+            defaultValue={state?.data?.title || categories[0]?.id}
             label="Category"
           >
             {categories?.map((category) => {

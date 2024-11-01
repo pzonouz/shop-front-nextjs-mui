@@ -1,19 +1,27 @@
 "use client";
 import {
   Box,
+  Button,
   FormControl,
   FormHelperText,
+  IconButton,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
   InputLabel,
   MenuItem,
   Select,
   TextField,
 } from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { LoadingButton } from "@mui/lab";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ProductType } from "@/app/types/ProductType";
 import { EditProductAction } from "@/actions/product.action";
 import { CategoryType } from "@/app/types/CategoryType";
+import { styled } from "@mui/material/styles";
 
 const EditProduct = ({
   product,
@@ -24,6 +32,18 @@ const EditProduct = ({
 }) => {
   const [state, action, loading] = useActionState(EditProductAction, null);
   const router = useRouter();
+  const VisuallyHiddenInput = styled("input")({
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(50%)",
+    height: 1,
+    overflow: "hidden",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    whiteSpace: "nowrap",
+    width: 1,
+  });
+  // TODO:Image Edit
   useEffect(() => {
     if (state?.success) {
       router.push("/admin/product");
@@ -84,14 +104,43 @@ const EditProduct = ({
         helperText={state?.error?.fieldErrors?.quantity}
         error={!!state?.error?.fieldErrors?.quantity}
       />
-      <TextField
-        name="image"
-        label="Image"
-        variant="standard"
-        defaultValue={state?.data?.image || product?.image}
-        helperText={state?.error?.fieldErrors?.image}
-        error={!!state?.error?.fieldErrors?.image}
-      />
+      <ImageList>
+        {product?.images.map((item) => (
+          <ImageListItem key={item?.id}>
+            <img
+              src={`${process.env.NEXT_PUBLIC_BACKEND_STORAGE_URL}/${item?.path}`}
+              loading="lazy"
+            />
+            <ImageListItemBar
+              actionIcon={
+                <IconButton
+                  sx={{
+                    color: "error.main",
+                    backgroundColor: "white",
+                    "&:hover": {
+                      color: "error.dark",
+                      backgroundColor: "#eeeeee",
+                    },
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              }
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
+      <Button
+        component="label"
+        role={undefined}
+        variant="contained"
+        tabIndex={-1}
+        startIcon={<CloudUploadIcon />}
+      >
+        Upload Image
+        <VisuallyHiddenInput name="image" type="file" />
+      </Button>
+
       <FormControl variant="standard" fullWidth>
         <InputLabel>Category</InputLabel>
         <Select

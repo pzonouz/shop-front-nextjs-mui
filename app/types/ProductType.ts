@@ -1,3 +1,5 @@
+import { ImageType } from "./ImageType";
+
 export type ProductType = {
   id: number;
   title: string;
@@ -5,5 +7,5 @@ export type ProductType = {
   quantity: number;
   description: string;
   category_id: string;
-  image: string;
+  images: ImageType[];
 };
