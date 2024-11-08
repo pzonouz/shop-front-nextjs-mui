@@ -1,6 +1,6 @@
 import { EditProduct } from "@/app/components/Product/EditProduct";
 
-const page = async ({ params }: { params: { id: string } }) => {
+const page = async ({ params }: { params: any }) => {
   const { id } = await params;
   const resCategories = await fetch(`${process.env.BACKEND_URL}/category`);
   const categories = await resCategories.json();

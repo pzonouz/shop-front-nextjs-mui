@@ -16,7 +16,7 @@ import { AddProductAction } from "@/actions/product.action";
 import { CategoryType } from "@/app/types/CategoryType";
 import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-// TODO:Mutlipe image upload
+import { ImagesComponent } from "../Shared/ImagesComponent";
 const AddProduct = ({ categories }: { categories: CategoryType[] }) => {
   const [open, setOpen] = useState(false);
   const [state, action, loading] = useActionState(AddProductAction, null);
@@ -113,7 +113,7 @@ const AddProduct = ({ categories }: { categories: CategoryType[] }) => {
             })}
           </Select>
         </FormControl>
-        {state?.error?.formErrors.length > 0 && (
+        {state?.error?.formErrors?.length! > 0 && (
           <FormHelperText error>{state?.error?.formErrors}</FormHelperText>
         )}
         <LoadingButton loading={loading} type="submit" variant="contained">

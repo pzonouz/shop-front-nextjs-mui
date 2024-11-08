@@ -27,7 +27,6 @@ const AddProductAction = async (_prevState: any, formData: FormData) => {
   });
   if (res.ok) {
     const product = await res.json();
-    console.log(product);
     formData.append("product_id", product.id);
     const image = formData.get("image") as File;
     if (image) {
@@ -80,4 +79,36 @@ const EditProductAction = async (_prevState: any, formData: FormData) => {
   };
   return { error: err, data: rawData };
 };
-export { AddProductAction, EditProductAction };
+const AddImageAction = async (_product: any, formData: FormData) => {
+  const product_id = formData.get("product_id");
+  formData.append("product_id", product_id as string);
+  const image = formData.get("image") as File;
+  if (image) {
+    const fileRes = await fetch(`${process.env.BACKEND_URL}/image`, {
+      headers: {
+        Accept: "application/json",
+      },
+      method: "POST",
+      body: formData,
+    });
+    if (fileRes.ok) {
+      revalidatePath(`/admin/product`);
+      revalidatePath(`/admin/product/${product_id}/edit`);
+    }
+  }
+};
+const DeleteImageAction = async (imageId: string, productId: string) => {
+  const res = await fetch(`${process.env.BACKEND_URL}/image/${imageId}`, {
+    method: "DELETE",
+  });
+  if (res.ok) {
+    revalidatePath(`/admin/product`);
+    revalidatePath(`/admin/product/${productId}/edit`);
+  }
+};
+export {
+  AddProductAction,
+  EditProductAction,
+  AddImageAction,
+  DeleteImageAction,
+};

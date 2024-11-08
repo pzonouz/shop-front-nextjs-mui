@@ -8,4 +8,5 @@ export type ProductType = {
   description: string;
   category_id: string;
   images: ImageType[];
+  updated_at: string;
 };
