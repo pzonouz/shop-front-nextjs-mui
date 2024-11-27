@@ -47,6 +47,18 @@ const UserMenu = ({ session }: { session: Session | null }) => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
+        {session?.user && (
+          <Typography
+            sx={{
+              wordBreak: "break-word",
+              maxWidth: "6rem",
+              textAlign: "center",
+              fontSize: "0.7rem",
+            }}
+          >
+            {session?.user?.email?.toString().split("@")[0]}
+          </Typography>
+        )}
         {!session?.user && (
           <MenuItem key={1} onClick={handleCloseUserMenu}>
             <Typography sx={{ textAlign: "center" }}>Signin</Typography>
@@ -54,11 +66,21 @@ const UserMenu = ({ session }: { session: Session | null }) => {
         )}
         {session?.user && (
           <MenuItem key={2} onClick={handleCloseUserMenu}>
-            <Typography sx={{ textAlign: "center" }}>Profile</Typography>
+            <Typography
+              sx={{
+                textAlign: "center",
+                textDecoration: "none",
+                color: "inherit",
+              }}
+              component={Link}
+              href="/shop/profile"
+            >
+              Profile
+            </Typography>
           </MenuItem>
         )}
         {session?.user && (
-          <MenuItem key={3} component={Link} href="/signout">
+          <MenuItem key={3} component={Link} href="/shop/signout">
             <Typography sx={{ textAlign: "center" }}>Signout</Typography>
           </MenuItem>
         )}

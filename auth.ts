@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  pages: { signIn: "/signin" },
   providers: [
     Credentials({
       authorize: async (credentials) => {
@@ -28,11 +27,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // @ts-ignore
         token.access = user?.access;
         // @ts-ignore
-        token.first_name = user?.first_name;
+        token.firstName = user?.firstname;
         // @ts-ignore
-        token.last_name = user?.last_name;
+        token.lasName = user?.lastname;
         token.email = user?.email;
         token.image = user?.image;
+        token.isAdmin = user?.is_admin;
       }
       return token;
     },
@@ -40,13 +40,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // @ts-ignore
       session.access = token?.access;
       // @ts-ignore
-      session.user.first_name = token?.first_name;
+      session.user.firstName = token?.firstName;
       // @ts-ignore
-      session.user.last_name = token?.last_name;
+      session.user.lastName = token?.lastName;
       // @ts-ignore
       session.user.email = token?.email;
       // @ts-ignore
       session.user.image = token?.image;
+      session.user.isAdmin = token?.isAdmin;
       return session;
     },
   },

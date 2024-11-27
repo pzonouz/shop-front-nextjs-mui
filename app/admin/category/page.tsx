@@ -1,4 +1,3 @@
-import { CategoryType } from "@/app/types/CategoryType";
 import {
   Box,
   IconButton,
@@ -11,10 +10,17 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Link from "next/link";
+import { auth } from "@/auth";
+import { CategoryType } from "@/types/CategoryType";
 import { AddCategory } from "@/app/components/Category/AddCategory";
 
 const page = async () => {
-  const resCategories = await fetch(`${process.env.BACKEND_URL}/category/`);
+  const session = await auth();
+  const resCategories = await fetch(`${process.env.BACKEND_URL}/category/`, {
+    headers: {
+      Authorization: `Bearer ${session?.access}`,
+    },
+  });
   const categories: CategoryType[] = await resCategories.json();
   return (
     <Box sx={{ width: "100%" }}>

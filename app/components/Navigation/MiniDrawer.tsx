@@ -20,6 +20,7 @@ import ListItemText from "@mui/material/ListItemText";
 import CategoryIcon from "@mui/icons-material/Category";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import SignoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -379,6 +380,64 @@ export default function MiniDrawer({
               </ListItemIcon>
               <ListItemText
                 primary={"Orders"}
+                sx={[
+                  open
+                    ? {
+                        opacity: 1,
+                      }
+                    : {
+                        opacity: 0,
+                      },
+                ]}
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            key={4}
+            disablePadding
+            sx={{
+              display: "block",
+              ...(path.includes("admin/signout") && {
+                backgroundColor: "#eeeeee",
+              }),
+            }}
+          >
+            <ListItemButton
+              component={Link}
+              href="/admin/signout"
+              sx={[
+                {
+                  minHeight: 48,
+                  px: 2.5,
+                },
+                open
+                  ? {
+                      justifyContent: "initial",
+                    }
+                  : {
+                      justifyContent: "center",
+                    },
+              ]}
+            >
+              <ListItemIcon
+                sx={[
+                  {
+                    minWidth: 0,
+                    justifyContent: "center",
+                  },
+                  open
+                    ? {
+                        mr: 3,
+                      }
+                    : {
+                        mr: "auto",
+                      },
+                ]}
+              >
+                <SignoutIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={"Signout"}
                 sx={[
                   open
                     ? {

@@ -12,11 +12,10 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { useActionState, useEffect, useState } from "react";
 import { ModalComponent } from "../Navigation/ModalComponent";
-import { AddProductAction } from "@/actions/product.action";
-import { CategoryType } from "@/app/types/CategoryType";
 import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { ImagesComponent } from "../Shared/ImagesComponent";
+import { CategoryType } from "@/types/CategoryType";
+import { AddProductAction } from "@/actions/Product.action";
 const AddProduct = ({ categories }: { categories: CategoryType[] }) => {
   const [open, setOpen] = useState(false);
   const [state, action, loading] = useActionState(AddProductAction, null);

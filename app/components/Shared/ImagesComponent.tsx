@@ -3,7 +3,6 @@
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import { ProductType } from "@/app/types/ProductType";
 import {
   Box,
   Button,
@@ -14,10 +13,11 @@ import {
   ImageListItemBar,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { AddImageAction, DeleteImageAction } from "@/actions/product.action";
 import { useActionState, useState } from "react";
 import { LoadingButton } from "@mui/lab";
 import Image from "next/image";
+import { ProductType } from "@/types/ProductType";
+import { AddImageAction, DeleteImageAction } from "@/actions/Product.action";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",

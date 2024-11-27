@@ -1,9 +1,15 @@
 "use client";
-import { SignupAction } from "@/actions/signup.action";
 import { useActionState } from "react";
-import { Box, FormHelperText, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  FormHelperText,
+  Link,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import Link from "next/link";
+import NextLink from "next/link";
+import { SignupAction } from "@/actions/Auth.action";
 
 const Singup = () => {
   const [state, action, loading] = useActionState(SignupAction, null);
@@ -56,7 +62,7 @@ const Singup = () => {
         helperText={state?.error?.fieldErrors?.password_confirmation}
         error={!!state?.error?.fieldErrors?.password_confirmation}
       />
-      {state?.error?.formErrors?.length > 0 && (
+      {state?.error?.formErrors?.length! > 0 && (
         <FormHelperText error={!!state?.error?.formErrors}>
           {JSON.stringify(state?.error?.formErrors)}
         </FormHelperText>
@@ -64,7 +70,9 @@ const Singup = () => {
       <LoadingButton type="submit" variant="contained" loading={loading}>
         SIGN UP
       </LoadingButton>
-      <Link href="/signin">Already Have Account?</Link>
+      <Link component={NextLink} href="/shop/signin">
+        Already Have Account?
+      </Link>
     </Box>
   );
 };

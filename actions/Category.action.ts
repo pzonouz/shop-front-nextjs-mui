@@ -1,4 +1,5 @@
 "use server";
+import { auth } from "@/auth";
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 const schema = z.object({
@@ -11,12 +12,14 @@ const AddCategoryAction = async (_prevState: any, formData: FormData) => {
   if (validatedData?.error) {
     return { error: validatedData?.error.flatten(), data: rawData };
   }
+  const session = await auth();
   const res = await fetch(`${process.env.BACKEND_URL}/category`, {
     method: "POST",
     body: JSON.stringify({ ...validatedData.data }),
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      Authorization: `Bearer ${session?.access}`,
     },
   });
   if (res.ok) {
@@ -36,6 +39,7 @@ const EditCategoryAction = async (_prevState: any, formData: FormData) => {
   if (validatedData?.error) {
     return { error: validatedData?.error.flatten(), data: rawData };
   }
+  const session = await auth();
   const res = await fetch(
     `${process.env.BACKEND_URL}/category/${rawData?.id}`,
     {
@@ -44,6 +48,7 @@ const EditCategoryAction = async (_prevState: any, formData: FormData) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${session?.access}`,
       },
     },
   );

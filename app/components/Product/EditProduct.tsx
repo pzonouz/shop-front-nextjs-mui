@@ -9,12 +9,12 @@ import {
   TextField,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { ProductType } from "@/app/types/ProductType";
-import { EditProductAction } from "@/actions/product.action";
-import { CategoryType } from "@/app/types/CategoryType";
 import { ImagesComponent } from "../Shared/ImagesComponent";
+import { ProductType } from "@/types/ProductType";
+import { CategoryType } from "@/types/CategoryType";
+import { EditProductAction } from "@/actions/Product.action";
 
 const EditProduct = ({
   product,
@@ -34,7 +34,7 @@ const EditProduct = ({
     <Box
       sx={{
         padding: "2rem",
-        marginTop: "3rem",
+        marginTop: "1rem",
         width: "80%",
         backgroundColor: "white",
         display: "flex",
@@ -115,12 +115,7 @@ const EditProduct = ({
         {state?.error?.formErrors?.length! > 0 && (
           <FormHelperText error>{state?.error?.formErrors}</FormHelperText>
         )}
-        <LoadingButton
-          disabled={true}
-          loading={loading}
-          type="submit"
-          variant="contained"
-        >
+        <LoadingButton loading={loading} type="submit" variant="contained">
           Edit
         </LoadingButton>
       </Box>

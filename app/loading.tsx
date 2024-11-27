@@ -10,7 +10,9 @@ const loading = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "rgba(50,50,50,0.5)",
+        backgroundColor: "rgba(50,50,50,0.1)",
+        opacity: "0.2",
+        zIndex: "100",
       }}
     >
       <CircularProgress color="success" />

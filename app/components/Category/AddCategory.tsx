@@ -2,8 +2,8 @@
 import { Box, FormHelperText, TextField } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useActionState, useEffect, useState } from "react";
-import { AddCategoryAction } from "@/actions/category.action";
 import { ModalComponent } from "../Navigation/ModalComponent";
+import { AddCategoryAction } from "@/actions/Category.action";
 
 const AddCategory = () => {
   const [open, setOpen] = useState(false);

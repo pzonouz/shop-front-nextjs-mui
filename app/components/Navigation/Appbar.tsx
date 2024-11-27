@@ -7,6 +7,7 @@ import { MobileMenu } from "./MobileMenu";
 import { DesktopMenu } from "./DesktopMenu";
 import { UserMenu } from "./UserMenu";
 import { auth } from "@/auth";
+import { CartMenu } from "../Cart/CartMenu";
 
 const ResponsiveAppBar = async () => {
   const session = await auth();
@@ -55,6 +56,7 @@ const ResponsiveAppBar = async () => {
             LOGO
           </Typography>
           <DesktopMenu pages={pages} />
+          <CartMenu />
           <UserMenu session={session} />
         </Toolbar>
       </Container>

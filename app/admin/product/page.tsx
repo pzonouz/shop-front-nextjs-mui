@@ -12,12 +12,22 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Link from "next/link";
 import { AddProduct } from "@/app/components/Product/AddProduct";
+import { auth } from "@/auth";
 
 const page = async () => {
-  const resProducts = await fetch(`${process.env.BACKEND_URL}/product/`);
+  const session = await auth();
+  const resProducts = await fetch(`${process.env.BACKEND_URL}/product/`, {
+    headers: {
+      Authorization: `Bearer ${session?.access}`,
+    },
+  });
   const products: ProductType[] = await resProducts.json();
 
-  const resCategories = await fetch(`${process.env.BACKEND_URL}/category/`);
+  const resCategories = await fetch(`${process.env.BACKEND_URL}/category/`, {
+    headers: {
+      Authorization: `Bearer ${session?.access}`,
+    },
+  });
   const categories = await resCategories.json();
   return (
     <Box sx={{ width: "100%" }}>

@@ -18,7 +18,6 @@ export async function GET(
   // const blob = new Blob([image], { type: "image/jpeg" });
   // const file = new File([blob], "downloaded_image.jpg", { type: "image/jpeg" });
   const file = res.body;
-  console.log(file);
   return new Response(file, {
     headers: {
       ...res.headers,

@@ -1,4 +1,3 @@
-import { ProductType } from "@/app/types/ProductType";
 import {
   Card,
   CardActions,
@@ -6,31 +5,25 @@ import {
   CardHeader,
   CardMedia,
   IconButton,
+  IconButtonProps,
+  styled,
   Typography,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import React from "react";
-import { AddToCart } from "./AddToCart";
+import { AddToCart } from "../Cart/AddToCart";
+import { ProductType } from "@/types/ProductType";
+import Link from "next/link";
 
 const ProductCard = ({ product }: { product: ProductType }) => {
-  const date = new Date(product?.updated_at);
   return (
     <Card sx={{ maxWidth: 345, marginX: "auto" }}>
       <CardHeader
-        // avatar={
-        //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-        //     R
-        //   </Avatar>
-        // }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
+        sx={{ textDecoration: "none", color: "inherit" }}
+        component={Link}
+        href={`/shop/product/${product?.id}`}
         title={product?.title}
-        subheader={date?.toLocaleString()}
       />
       <CardMedia
         component="img"

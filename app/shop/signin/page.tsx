@@ -1,13 +1,19 @@
 "use client";
 
-import { signinAction } from "@/actions/signin.action";
+import { SigninAction } from "@/actions/Auth.action";
 import { LoadingButton } from "@mui/lab";
-import { Box, FormHelperText, TextField, Typography } from "@mui/material";
-import Link from "next/link";
+import {
+  Box,
+  FormHelperText,
+  Link,
+  TextField,
+  Typography,
+} from "@mui/material";
+import NextLink from "next/link";
 import { useActionState } from "react";
 
 const signin = () => {
-  const [state, action, loading] = useActionState(signinAction, null);
+  const [state, action, loading] = useActionState(SigninAction, null);
   return (
     <Box
       component="form"
@@ -55,7 +61,9 @@ const signin = () => {
       <LoadingButton type="submit" variant="contained" loading={loading}>
         SIGN IN
       </LoadingButton>
-      <Link href="/signup">Create an account?</Link>
+      <Link component={NextLink} href="/shop/signup">
+        Create An Account?
+      </Link>
     </Box>
   );
 };

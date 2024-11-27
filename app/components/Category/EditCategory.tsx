@@ -2,9 +2,9 @@
 import { Box, FormHelperText, TextField } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useActionState, useEffect } from "react";
-import { EditCategoryAction } from "@/actions/category.action";
-import { CategoryType } from "@/app/types/CategoryType";
 import { useRouter } from "next/navigation";
+import { CategoryType } from "@/types/CategoryType";
+import { EditCategoryAction } from "@/actions/Category.action";
 
 const EditCategory = ({ category }: { category: CategoryType }) => {
   const [state, action, loading] = useActionState(EditCategoryAction, null);
